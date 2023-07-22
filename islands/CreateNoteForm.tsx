@@ -1,8 +1,8 @@
-import { useEffect, useRef } from "preact/hooks";
+import { useEffect, useMemo, useRef } from "preact/hooks";
 
 export default function CreateNoteForm() {
   const formRef = useRef<HTMLFormElement>(null);
-  const token = crypto.getRandomValues(new BigUint64Array(1))[0].toString(36);
+  const token = useMemo(() => crypto.getRandomValues(new BigUint64Array(1))[0].toString(36), []);
   useEffect(() => {
     const form = formRef.current!;
     form.onsubmit = (e) => {
