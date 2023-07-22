@@ -1,12 +1,12 @@
 const kv = await Deno.openKv();
 
-const PREFIX = ["count"];
+const PREFIX = "note";
 
-export async function getCount() {
-  const res = await kv.get<number>(PREFIX);
+export async function loadNote(path: string[]): Promise<string> {
+  const res = await kv.get<string>([PREFIX, ...path]);
   return res.value;
 }
 
-export async function setCount(newCount: number) {
-  await kv.set(PREFIX, newCount);
+export async function storeNote(path: string[], note: string) {
+  await kv.set([PREFIX, ...path], note);
 }
